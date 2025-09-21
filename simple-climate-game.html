@@ -20,7 +20,8 @@
         <h1>🌍 Egyszerű Klímajáték</h1>
         
         <div id="challenge">
-            <h2>Hol található Budapest?</h2>
+   	    <h2>Hol található ez a klímadiagram?</h2>
+  	    <canvas id="climateChart" width="400" height="200" style="border: 1px solid #ccc; margin: 10px 0;"></canvas>
             <p>Kattintson a térképre, hogy megtippeli Budapest helyét!</p>
             <p><strong>Tipp:</strong> Közép-Európában, a Duna mentén</p>
         </div>
@@ -89,6 +90,33 @@
                 .openPopup();
             map.setView(budapest, 8);
         }
+	// Simple climate chart for Budapest
+	const ctx = document.getElementById('climateChart').getContext('2d');
+	const months = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
+	const temps = [0, 2, 7, 12, 17, 21, 23, 22, 17, 12, 6, 1]; // Budapest temps
+	const precips = [31, 32, 30, 36, 66, 64, 72, 60, 53, 41, 46, 40]; // Budapest precip
+
+	// Draw simple chart
+	for (let i = 0; i < 12; i++) {
+    	// Temperature line (red)
+    	ctx.strokeStyle = 'red';
+    	ctx.lineWidth = 2;
+    	if (i > 0) {
+        	ctx.beginPath();
+        	ctx.moveTo(30 + (i-1) * 30, 180 - temps[i-1] * 6);
+        	ctx.lineTo(30 + i * 30, 180 - temps[i] * 6);
+        	ctx.stroke();
+    	}
+    
+    	// Precipitation bars (blue)
+    	ctx.fillStyle = 'rgba(0,100,255,0.6)';
+    	ctx.fillRect(25 + i * 30, 180 - precips[i], 10, precips[i]);
+    
+    	// Month labels
+    	ctx.fillStyle = 'black';
+    	ctx.font = '12px Arial';
+    	ctx.fillText(months[i], 28 + i * 30, 195);
+	}
     </script>
 </body>
 </html>
