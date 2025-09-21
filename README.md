@@ -1,1 +1,2 @@
-# European Climate Game 
+# European Climate Game
+Klímadiagramok térképen
