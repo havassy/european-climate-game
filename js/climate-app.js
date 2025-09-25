@@ -170,15 +170,27 @@ class ClimateGame {
         const temps = city.temperature;
         const precips = city.precipitation;
         
-        const tempMin = Math.min(...temps) - 5;
-        const tempMax = Math.max(...temps) + 5;
-        const tempRange = tempMax - tempMin;
-        
+        // Szimmetrikus skálák a 0 pont közös elhelyezéséhez
+        const tempExtreme = Math.max(Math.abs(Math.min(...temps)), Math.abs(Math.max(...temps))) + 5;
+        const tempMin = -tempExtreme;
+        const tempMax = tempExtreme;
         const precipMax = Math.max(...precips) + 20;
+        const tempRange = tempMax - tempMin;
         
         // Tengelyek és rács rajzolása
         this.drawAxes(ctx, chartLeft, chartRight, chartTop, chartBottom, tempMin, tempMax, precipMax);
         
+        // 0°C és 0mm vonalak ugyanazon magasságban
+        const zeroY = chartBottom - ((0 - tempMin) / tempRange) * chartHeight;
+        ctx.strokeStyle = '#666';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath();
+        ctx.moveTo(chartLeft, zeroY);
+        ctx.lineTo(chartRight, zeroY);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
         // Csapadék oszlopok (kék)
         ctx.fillStyle = 'rgba(70, 130, 180, 0.7)';
         const monthWidth = chartWidth / 12;
@@ -208,10 +220,10 @@ class ClimateGame {
             }
             
             // Hőmérséklet pontok
-            ctx.fillStyle = '#DC143C';
-            ctx.beginPath();
-            ctx.arc(x, y, 4, 0, 2 * Math.PI);
-            ctx.fill();
+            # ctx.fillStyle = '#DC143C';
+            # ctx.beginPath();
+            # ctx.arc(x, y, 4, 0, 2 * Math.PI);
+            # ctx.fill();
         }
         ctx.stroke();
     }
