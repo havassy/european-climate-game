@@ -104,27 +104,39 @@
 
     <!-- JavaScript könyvtárak -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="js/climate-app.js"></script>
     
-    <!-- Inicializálás ellenőrzés -->
+    <!-- Inicializálás csak akkor, amikor Leaflet betöltődött -->
     <script>
-        // Leaflet betöltés ellenőrzése
-        function checkLibraries() {
-            if (typeof L === 'undefined') {
-                console.error('Leaflet könyvtár nem töltődött be');
-                document.body.innerHTML = '<div style="padding: 50px; text-align: center;"><h2>Hiba: Térkép könyvtár nem elérhető</h2><p>Ellenőrizd az internetkapcsolatot és frissítsd az oldalt.</p></div>';
-                return false;
+        function initializeGame() {
+            if (typeof L !== 'undefined') {
+                console.log('Leaflet betöltve, játék inicializálás...');
+                // Climate app betöltése
+                const script = document.createElement('script');
+                script.src = 'js/climate-app.js';
+                script.onload = function() {
+                    console.log('Climate app betöltve');
+                };
+                script.onerror = function() {
+                    console.error('Climate app nem töltődött be');
+                    document.getElementById('map').innerHTML = '<div style="padding: 20px; text-align: center; color: red;">Hiba: Játék logika nem elérhető</div>';
+                };
+                document.head.appendChild(script);
+            } else {
+                console.log('Leaflet még nem elérhető, várakozás...');
+                setTimeout(initializeGame, 500);
             }
-            return true;
         }
         
-        // Ellenőrzés késleltetéssel
-        setTimeout(checkLibraries, 2000);
+        // Inicializálás indítása
+        document.addEventListener('DOMContentLoaded', initializeGame);
         
-        // Loading állapot kezelése
-        window.addEventListener('load', function() {
-            document.body.classList.add('loaded');
-        });
+        // Fallback ha túl sokáig tart
+        setTimeout(function() {
+            if (typeof L === 'undefined') {
+                console.error('Leaflet timeout');
+                document.getElementById('map').innerHTML = '<div style="padding: 20px; text-align: center; background: #ffebee; border: 1px solid #f44336; border-radius: 5px;"><h3>Térkép nem elérhető</h3><p>A térkép funkció offline módban nem működik.<br>Ellenőrizd az internetkapcsolatot és frissítsd az oldalt.</p></div>';
+            }
+        }, 10000);
     </script>
 </body>
 </html>

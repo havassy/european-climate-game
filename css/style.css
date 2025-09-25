@@ -1,1 +1,6 @@
-/* Climate Game Styles */ 
+/* Modern stílusok az új HTML elemekhez */
+.container { max-width: 1200px; margin: 0 auto; }
+.game-area { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.stats-panel { display: flex; gap: 15px; margin: 20px 0; }
+.region-item { display: flex; align-items: center; gap: 8px; }
+/* ...további stílusok */
