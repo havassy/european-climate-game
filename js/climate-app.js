@@ -220,10 +220,10 @@ class ClimateGame {
             }
             
             // Hőmérséklet pontok
-            # ctx.fillStyle = '#DC143C';
-            # ctx.beginPath();
-            # ctx.arc(x, y, 4, 0, 2 * Math.PI);
-            # ctx.fill();
+            // ctx.fillStyle = '#DC143C';
+            // ctx.beginPath();
+            // ctx.arc(x, y, 4, 0, 2 * Math.PI);
+            // ctx.fill();
         }
         ctx.stroke();
     }
