@@ -170,12 +170,23 @@ class ClimateGame {
         const temps = city.temperature;
         const precips = city.precipitation;
         
-        // Szimmetrikus skálák a 0 pont közös elhelyezéséhez
-        const tempExtreme = Math.max(Math.abs(Math.min(...temps)), Math.abs(Math.max(...temps))) + 5;
-        const tempMin = -tempExtreme;
-        const tempMax = tempExtreme;
-        const precipMax = Math.max(...precips) + 20;
+        // Skálák meghatározása - csak akkor negatív tengely, ha van negatív hőmérséklet
+        const tempMin_raw = Math.min(...temps);
+        const tempMax_raw = Math.max(...temps);
+
+        let tempMin, tempMax;
+
+        if (tempMin_raw < 0) {
+            const tempExtreme = Math.max(Math.abs(tempMin_raw), Math.abs(tempMax_raw)) + 5;
+            tempMin = -tempExtreme;
+            tempMax = tempExtreme;
+        } else {
+            tempMin = 0;
+            tempMax = tempMax_raw + 5;
+        }
+
         const tempRange = tempMax - tempMin;
+        const precipMax = Math.max(...precips) + 20;
         
         // Tengelyek és rács rajzolása
         this.drawAxes(ctx, chartLeft, chartRight, chartTop, chartBottom, tempMin, tempMax, precipMax);
