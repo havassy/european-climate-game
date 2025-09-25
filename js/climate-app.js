@@ -177,9 +177,8 @@ class ClimateGame {
         let tempMin, tempMax;
 
         if (tempMin_raw < 0) {
-            const tempExtreme = Math.max(Math.abs(tempMin_raw), Math.abs(tempMax_raw)) + 5;
-            tempMin = -tempExtreme;
-            tempMax = tempExtreme;
+            tempMin = tempMin_raw - 3;  // Kis margó negatív irányban
+            tempMax = tempMax_raw + 3;  // Kis margó pozitív irányban
         } else {
             tempMin = 0;
             tempMax = tempMax_raw + 5;
