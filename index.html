@@ -33,6 +33,12 @@
             </div>
         </div>
         
+	<div class="controls">
+            <button onclick="newGame()" class="btn btn-primary">🎲 Új játék</button>
+            <button onclick="showAnswer()" id="showAnswerBtn" class="btn btn-secondary">💡 Mutasd a választ</button>
+            <button onclick="nextRound()" id="nextRoundBtn" class="btn btn-success" style="display:none;">▶️ Következő kör</button>
+        </div>
+
         <div id="result" class="result-panel">Eredmény visszajelző panel</div>
 
         <div class="game-area">
@@ -81,13 +87,7 @@
                 </p>
             </div>
         </div>
-        
-        <div class="controls">
-            <button onclick="newGame()" class="btn btn-primary">🎲 Új játék</button>
-            <button onclick="showAnswer()" id="showAnswerBtn" class="btn btn-secondary">💡 Mutasd a választ</button>
-            <button onclick="nextRound()" id="nextRoundBtn" class="btn btn-success" style="display:none;">▶️ Következő kör</button>
-        </div>
-                
+                              
         <footer class="footer">
    	   <div class="data-source-simple">
       	   	<p>Adatforrás: Klímaadatok: <strong>ERA5 Reanalysis 1991-2020</strong> Európai Időjárási Szolgálat (ECMWF)</p>
