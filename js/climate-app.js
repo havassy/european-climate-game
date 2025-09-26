@@ -565,13 +565,12 @@ class ClimateGame {
     	const elevation = "~" + Math.round(Math.random() * 500 + 100); // Ideiglenes
     
     	// HTML frissítése
-    	const statsElement = document.getElementById('climate-stats');
-    	if (statsElement) {
-            statsElement.innerHTML = `
-            	<strong>Évi kh.:</strong> ${avgTemp}°C | 
-            	<strong>Évi cs.á.:</strong> ${avgPrecip}mm | 
-            	<strong>Tszfm.:</strong> ${elevation}m
-            `;
+	const statsElement = document.getElementById('climate-stats');
+	if (statsElement) {
+ 	   statsElement.innerHTML = `
+    	      <strong>Évi kh.:</strong> ${avgTemp}°C | <strong>Évi cs.á.:</strong> ${avgPrecip}mm<br>
+    	      <strong>Tszfm.:</strong> ${elevation}m
+   	 `;
 	}
     }
 }
