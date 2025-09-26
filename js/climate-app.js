@@ -412,9 +412,9 @@ class ClimateGame {
         this.showResult(resultText, resultClass, points);
     
         // Válasz gomb megjelenítése
-        const showAnswerBtn = document.getElementById('showAnswerBtn');
-        if (showAnswerBtn) {
-            showAnswerBtn.style.display = 'inline-block';
+	const showAnswerBtn = document.getElementById('showAnswerBtn');
+	if (showAnswerBtn) {
+ 	   showAnswerBtn.style.
         }
     }
     
