@@ -169,11 +169,11 @@ class ClimateGame {
         this.updateQuestionText();
     }
     
-    	updateQuestionText() {
-    	const questionElement = document.getElementById('challenge-text');
-    	if (questionElement) {
-     	   questionElement.textContent = 'Melyik európai fővárosra jellemző ez a klíma?';
-    	}
+    updateQuestionText() {
+        const questionElement = document.getElementById('challenge-text');
+        if (questionElement) {
+            questionElement.textContent = 'Melyik európai fővárosra jellemző ez a klíma?';
+        }
     }
     
     drawClimateChart(cityName) {
@@ -367,55 +367,55 @@ class ClimateGame {
         this.evaluateGuess(latlng);
     }
     
-    	evaluateGuess(latlng) {
-    	const cityData = this.climateData.cities[this.currentCity];
-    	const actualCoords = cityData.coordinates.target;
+    evaluateGuess(latlng) {
+        const cityData = this.climateData.cities[this.currentCity];
+        const actualCoords = cityData.coordinates.target;
     
-    	// Távolság számítása
-    	const distance = Math.round(L.latLng(actualCoords).distanceTo(latlng) / 1000);
+        // Távolság számítása
+        const distance = Math.round(L.latLng(actualCoords).distanceTo(latlng) / 1000);
     
-    	// Új pontrendszer
-    	let points = 0;
-    	if (distance <= 20) {
-      	  points = 100;
-    	} else if (distance >= 1000) {
-    	    points = 0;
-    	} else {
-     	   // Lineáris csökkenés: 20km-től 1000km-ig, 100 pontról 0-ra
-     	   points = Math.round(100 - ((distance - 20) * 100) / (1000 - 20));
-     	   points = Math.max(0, Math.min(100, points)); // 0-100 között tartás
-    	}
+        // Új pontrendszer
+        let points = 0;
+        if (distance <= 20) {
+            points = 100;
+        } else if (distance >= 1000) {
+            points = 0;
+        } else {
+            // Lineáris csökkenés: 20km-től 1000km-ig, 100 pontról 0-ra
+            points = Math.round(100 - ((distance - 20) * 100) / (1000 - 20));
+            points = Math.max(0, Math.min(100, points)); // 0-100 között tartás
+        }
     
-   	 let resultText = '';
-   	 let resultClass = 'info';
+        let resultText = '';
+        let resultClass = 'info';
     
-   	 if (distance <= 20) {
-  	      resultText = `Kiváló! Csak ${distance} km-re vagy!`;
-  	      resultClass = 'success';
-  	      this.gameStats.correct++;
-  	  } else if (distance <= 100) {
-  	      resultText = `Jó! ${distance} km távolság.`;
-   	     resultClass = 'good';
-  	      this.gameStats.correct++;
-   	 } else if (distance <= 500) {
-   	     resultText = `Közepes. ${distance} km távolság.`;
-   	     resultClass = 'good';
-   	 } else {
-  	      resultText = `Távol vagy. ${distance} km távolság.`;
-  	      resultClass = 'info';
-  	 }
+        if (distance <= 20) {
+            resultText = `Kiváló! Csak ${distance} km-re vagy!`;
+            resultClass = 'success';
+            this.gameStats.correct++;
+        } else if (distance <= 100) {
+            resultText = `Jó! ${distance} km távolság.`;
+            resultClass = 'good';
+            this.gameStats.correct++;
+        } else if (distance <= 500) {
+            resultText = `Közepes. ${distance} km távolság.`;
+            resultClass = 'good';
+        } else {
+            resultText = `Távol vagy. ${distance} km távolság.`;
+            resultClass = 'info';
+        }
     
-    	this.gameStats.score += points;
-   	 this.gameStats.total++;
+        this.gameStats.score += points;
+        this.gameStats.total++;
     
-   	 this.updateStats();
-    	this.showResult(resultText, resultClass, points);
+        this.updateStats();
+        this.showResult(resultText, resultClass, points);
     
-   	 // Válasz gomb megjelenítése
-   	 const showAnswerBtn = document.getElementById('showAnswerBtn');
-   	 if (showAnswerBtn) {
-   	     showAnswerBtn.style.display = 'inline-block';
-   	 }
+        // Válasz gomb megjelenítése
+        const showAnswerBtn = document.getElementById('showAnswerBtn');
+        if (showAnswerBtn) {
+            showAnswerBtn.style.display = 'inline-block';
+        }
     }
     
     getRegionFromCoords(lat, lng) {
@@ -491,11 +491,11 @@ class ClimateGame {
         // Térkép visszaállítása
         this.map.setView([54.5, 15.0], 4);
         
-        // Eredmény törlése
+        // Eredmény visszaállítása
         const resultElement = document.getElementById('result');
         if (resultElement) {
-            resultElement.innerHTML = '';
-            resultElement.className = '';
+            resultElement.innerHTML = 'Eredmény visszajelző panel';
+            resultElement.className = 'result-panel';
         }
         
         // Kör növelése
@@ -540,8 +540,8 @@ class ClimateGame {
         // UI visszaállítása
         const resultElement = document.getElementById('result');
         if (resultElement) {
-            resultElement.innerHTML = '';
-            resultElement.className = '';
+            resultElement.innerHTML = 'Eredmény visszajelző panel';
+            resultElement.className = 'result-panel';
         }
         
         // Gombok visszaállítása
@@ -553,45 +553,45 @@ class ClimateGame {
         // Statisztikák és új város
         this.updateStats();
         this.selectRandomCity();
-        }
+    }
 
     updateClimateStats(cityName) {
-    	const city = this.climateData.cities[cityName];
-    	if (!city) return;
+        const city = this.climateData.cities[cityName];
+        if (!city) return;
     
-    	// Évi középhőmérséklet számítása
-    	const avgTemp = (city.temperature.reduce((a, b) => a + b, 0) / 12).toFixed(1);
+        // Évi középhőmérséklet számítása
+        const avgTemp = (city.temperature.reduce((a, b) => a + b, 0) / 12).toFixed(1);
     
-    	// Évi csapadékátlag számítása  
-    	const avgPrecip = Math.round(city.precipitation.reduce((a, b) => a + b, 0));
+        // Évi csapadékátlag számítása  
+        const avgPrecip = Math.round(city.precipitation.reduce((a, b) => a + b, 0));
     
-    	// Valós tengerszint feletti magasság adatok
-	const elevationData = {
-   	 "Stockholm": 40,
-  	  "Oslo": 26,
-  	  "Helsinki": 13,
-  	  "London": 11,
-   	 "Dublin": 17,
-   	 "Amsterdam": 14,
-  	  "Madrid": 660,
-  	  "Rome": 24,
-  	  "Athens": 85,
-  	  "Berlin": 34,
-   	 "Vienna": 171,
-   	 "Budapest": 110,
-   	 "Warsaw": 108,
-   	 "Bucharest": 72
-	};
+        // Valós tengerszint feletti magasság adatok
+        const elevationData = {
+            "Stockholm": 40,
+            "Oslo": 26,
+            "Helsinki": 13,
+            "London": 11,
+            "Dublin": 17,
+            "Amsterdam": 14,
+            "Madrid": 660,
+            "Rome": 24,
+            "Athens": 85,
+            "Berlin": 34,
+            "Vienna": 171,
+            "Budapest": 110,
+            "Warsaw": 108,
+            "Bucharest": 72
+        };
 
-	const elevation = elevationData[cityName] || 100; // fallback érték
-    
-    	// HTML frissítése
-	const statsElement = document.getElementById('climate-stats');
-	if (statsElement) {
- 	   statsElement.innerHTML = `
-    	      <strong>Évi kh.:</strong> ${avgTemp}°C | <strong>Évi cs.á.:</strong> ${avgPrecip}mm | <strong>Tszfm.:</strong> ${elevation}m
-   	 `;
-	}
+        const elevation = elevationData[cityName] || 100; // fallback érték
+        
+        // HTML frissítése
+        const statsElement = document.getElementById('climate-stats');
+        if (statsElement) {
+            statsElement.innerHTML = `
+                <strong>Évi kh.:</strong> ${avgTemp}°C | <strong>Évi cs.á.:</strong> ${avgPrecip}mm | <strong>Tszfm.:</strong> ${elevation}m
+            `;
+        }
     }
 }
 
