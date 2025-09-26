@@ -236,14 +236,12 @@ def extract_city_climate_data():
                 precip_avg = np.mean(precip_monthly, axis=0)
                 
                 # Kelvin → Celsius konverzió hőmérsékletre
-                if np.mean(temp_avg) > 100:  # Ha > 100, valószínűleg Kelvin
+                if np.mean(temp_avg) > 100:
                     temp_avg = kelvin_to_celsius(temp_avg)
-                
-                # Csapadék egység ellenőrzése (m/s → mm/month konverzió ha szükséges)
-                if np.mean(precip_avg) < 1:  # Ha nagyon kicsi, valószínűleg m/s
-                    # m/s → mm/hó: * 1000 * 3600 * 24 * 30.44
-                    precip_avg = precip_avg * 1000 * 3600 * 24 * 30.44
-                
+                # Csapadék konverzió: ha nagyon kicsi érték, szorozzuk 1000-rel
+                if np.mean(precip_avg) < 1:
+                    precip_avg = precip_avg * 1000  # m → mm konverzió                
+
                 # Eredmények tárolása
                 cities_data[city_name] = {
                     "region": city_info["region"],
