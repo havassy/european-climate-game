@@ -567,11 +567,12 @@ class ClimateGame {
     	// HTML frissítése
     	const statsElement = document.getElementById('climate-stats');
     	if (statsElement) {
-        	statsElement.innerHTML = `
+            statsElement.innerHTML = `
             	<strong>Évi kh.:</strong> ${avgTemp}°C | 
             	<strong>Évi cs.á.:</strong> ${avgPrecip}mm | 
             	<strong>Tszfm.:</strong> ${elevation}m
-        `;
+            `;
+	}
     }
 }
 
