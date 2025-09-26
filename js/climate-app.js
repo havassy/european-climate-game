@@ -169,15 +169,11 @@ class ClimateGame {
         this.updateQuestionText();
     }
     
-    updateQuestionText() {
-        const questionElement = document.getElementById('challenge-text');
-        if (questionElement) {
-            if (this.gameLevel === 1) {
-                questionElement.textContent = 'Európa melyik részére jellemző ez az éghajlat?';
-            } else {
-                questionElement.textContent = 'Melyik európai városra jellemző ez a klíma?';
-            }
-        }
+    	updateQuestionText() {
+    	const questionElement = document.getElementById('challenge-text');
+    	if (questionElement) {
+     	   questionElement.textContent = 'Melyik európai fővárosra jellemző ez a klíma?';
+    	}
     }
     
     drawClimateChart(cityName) {
@@ -371,47 +367,55 @@ class ClimateGame {
         this.evaluateGuess(latlng);
     }
     
-    evaluateGuess(latlng) {
-        const cityData = this.climateData.cities[this.currentCity];
-        const actualCoords = cityData.coordinates.target;
-        
-        // Távolság számítása
-        const distance = Math.round(L.latLng(actualCoords).distanceTo(latlng) / 1000);
-        
-        // Régió ellenőrzése
-        const actualRegion = cityData.region;
-        const guessedRegion = this.getRegionFromCoords(latlng.lat, latlng.lng);
-        
-        let points = 0;
-        let resultText = '';
-        let resultClass = 'info';
-        
-        if (this.gameLevel === 1) {
-            // 1. szint: régiós játék
-            if (guessedRegion === actualRegion) {
-                points = 100;
-                resultText = `🎉 Helyes! ${this.regionNames[actualRegion]}! Távolság: ${distance} km`;
-                resultClass = 'success';
-                this.gameStats.regionCorrect++;
-                this.gameStats.correct++;
-            } else {
-                points = 0;
-                resultText = `❌ Téves régió. Ez ${this.regionNames[actualRegion]} volt, nem ${this.regionNames[guessedRegion]}. Távolság: ${distance} km`;
-                resultClass = 'info';
-            }
-        }
-        
-        this.gameStats.score += points;
-        this.gameStats.total++;
-        
-        this.updateStats();
-        this.showResult(resultText, resultClass, points);
-        
-        // Válasz gomb megjelenítése
-        const showAnswerBtn = document.getElementById('showAnswerBtn');
-        if (showAnswerBtn) {
-            showAnswerBtn.style.display = 'inline-block';
-        }
+    	evaluateGuess(latlng) {
+    	const cityData = this.climateData.cities[this.currentCity];
+    	const actualCoords = cityData.coordinates.target;
+    
+    	// Távolság számítása
+    	const distance = Math.round(L.latLng(actualCoords).distanceTo(latlng) / 1000);
+    
+    	// Új pontrendszer
+    	let points = 0;
+    	if (distance <= 20) {
+      	  points = 100;
+    	} else if (distance >= 1000) {
+    	    points = 0;
+    	} else {
+     	   // Lineáris csökkenés: 20km-től 1000km-ig, 100 pontról 0-ra
+     	   points = Math.round(100 - ((distance - 20) * 100) / (1000 - 20));
+     	   points = Math.max(0, Math.min(100, points)); // 0-100 között tartás
+    	}
+    
+   	 let resultText = '';
+   	 let resultClass = 'info';
+    
+   	 if (distance <= 20) {
+  	      resultText = `Kiváló! Csak ${distance} km-re vagy!`;
+  	      resultClass = 'success';
+  	      this.gameStats.correct++;
+  	  } else if (distance <= 100) {
+  	      resultText = `Jó! ${distance} km távolság.`;
+   	     resultClass = 'good';
+  	      this.gameStats.correct++;
+   	 } else if (distance <= 500) {
+   	     resultText = `Közepes. ${distance} km távolság.`;
+   	     resultClass = 'good';
+   	 } else {
+  	      resultText = `Távol vagy. ${distance} km távolság.`;
+  	      resultClass = 'info';
+  	 }
+    
+    	this.gameStats.score += points;
+   	 this.gameStats.total++;
+    
+   	 this.updateStats();
+    	this.showResult(resultText, resultClass, points);
+    
+   	 // Válasz gomb megjelenítése
+   	 const showAnswerBtn = document.getElementById('showAnswerBtn');
+   	 if (showAnswerBtn) {
+   	     showAnswerBtn.style.display = 'inline-block';
+   	 }
     }
     
     getRegionFromCoords(lat, lng) {

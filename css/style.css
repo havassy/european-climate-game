@@ -129,7 +129,7 @@ body {
 
 /* TÉRKÉP STÍLUSOK - EZ A LEGFONTOSABB! */
 #map {
-    height: 400px;
+    height: 420px;
     width: 100%;
     border-radius: 8px;
     border: 2px solid #e2e8f0;
@@ -248,7 +248,7 @@ body {
     }
     
     #map {
-        height: 300px;
+        height: 320px;
     }
 }
 .climate-stats {
