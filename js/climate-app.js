@@ -568,8 +568,7 @@ class ClimateGame {
 	const statsElement = document.getElementById('climate-stats');
 	if (statsElement) {
  	   statsElement.innerHTML = `
-    	      <strong>Évi kh.:</strong> ${avgTemp}°C | <strong>Évi cs.á.:</strong> ${avgPrecip}mm<br>
-    	      <strong>Tszfm.:</strong> ${elevation}m
+    	      <strong>Évi kh.:</strong> ${avgTemp}°C | <strong>Évi cs.á.:</strong> ${avgPrecip}mm | <strong>Tszfm.:</strong> ${elevation}m
    	 `;
 	}
     }
