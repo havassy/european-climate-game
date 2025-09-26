@@ -208,12 +208,15 @@ body {
 
 .footer {
     margin-top: 40px;
-    padding-top: 30px;
+    padding-top: 20px;
     border-top: 1px solid #e2e8f0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
+    text-align: center;
     color: #666;
+}
+
+.data-source-simple p {
+    margin: 0;
+    font-size: 14px;
 }
 
 .footer h3 {
@@ -259,4 +262,40 @@ body {
     border-radius: 5px;
     font-size: 14px;
     color: #495057;
+}
+.result-panel {
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+    
+    /* Alapértelmezett megjelenés - mindig látható */
+    background: #f8f9fa;
+    color: #6c757d;
+    border: 1px solid #e9ecef;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Csak akkor használja a színes stílusokat, amikor van eredmény */
+.result-panel.success {
+    background: linear-gradient(135deg, #48bb78, #38a169);
+    color: white;
+    border: none;
+}
+
+.result-panel.good {
+    background: linear-gradient(135deg, #ed8936, #dd6b20);
+    color: white;
+    border: none;
+}
+
+.result-panel.info {
+    background: linear-gradient(135deg, #4299e1, #3182ce);
+    color: white;
+    border: none;
 }
