@@ -410,12 +410,7 @@ class ClimateGame {
     
         this.updateStats();
         this.showResult(resultText, resultClass, points);
-    
-        // Válasz gomb megjelenítése
-	const showAnswerBtn = document.getElementById('showAnswerBtn');
-	if (showAnswerBtn) {
-   		showAnswerBtn.style.display = 'inline-block';
-	}
+            
     }
     
     getRegionFromCoords(lat, lng) {
@@ -533,12 +528,6 @@ class ClimateGame {
             resultElement.innerHTML = 'Eredmény visszajelző panel';
             resultElement.className = 'result-panel';
         }
-        
-        // Gombok visszaállítása
-        const showAnswerBtn = document.getElementById('showAnswerBtn');
-        const nextRoundBtn = document.getElementById('nextRoundBtn');
-        if (showAnswerBtn) showAnswerBtn.style.display = 'inline-block';
-        if (nextRoundBtn) nextRoundBtn.style.display = 'none';
         
         // Statisztikák és új város
         this.updateStats();
