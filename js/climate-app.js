@@ -5,6 +5,7 @@ class ClimateGame {
     constructor() {
         this.climateData = null;
         this.currentCity = null;
+	this.hasGuessed = false;	
         this.gameLevel = 1; // 1 = régió, 2 = pontos város
         this.gameStats = {
             score: 0,
@@ -156,6 +157,7 @@ class ClimateGame {
         const cityNames = Object.keys(this.climateData.cities);
         const randomIndex = Math.floor(Math.random() * cityNames.length);
         this.currentCity = cityNames[randomIndex];
+	this.hasGuessed = false;
         
         console.log(`Kiválasztott város: ${this.currentCity}`);
         
@@ -368,50 +370,57 @@ class ClimateGame {
     }
     
     evaluateGuess(latlng) {
-        const cityData = this.climateData.cities[this.currentCity];
-        const actualCoords = cityData.coordinates.target;
+    const cityData = this.climateData.cities[this.currentCity];
+    const actualCoords = cityData.coordinates.target;
     
-        // Távolság számítása
-        const distance = Math.round(L.latLng(actualCoords).distanceTo(latlng) / 1000);
+    // Távolság számítása
+    const distance = Math.round(L.latLng(actualCoords).distanceTo(latlng) / 1000);
     
-        // Új pontrendszer
-        let points = 0;
+    // Pontszámítás - csak ha még nem tippelt
+    let points = 0;
+    if (!this.hasGuessed) {  // <-- ÚJ: csak első tipp ad pontot
         if (distance <= 20) {
             points = 100;
         } else if (distance >= 1000) {
             points = 0;
         } else {
-            // Lineáris csökkenés: 20km-től 1000km-ig, 100 pontról 0-ra
             points = Math.round(100 - ((distance - 20) * 100) / (1000 - 20));
-            points = Math.max(0, Math.min(100, points)); // 0-100 között tartás
+            points = Math.max(0, Math.min(100, points));
         }
-    
-        let resultText = '';
-        let resultClass = 'info';
-    
-        if (distance <= 20) {
-            resultText = `Kiváló! Csak ${distance} km-re vagy!`;
-            resultClass = 'success';
-            this.gameStats.correct++;
-        } else if (distance <= 100) {
-            resultText = `Jó! ${distance} km távolság.`;
-            resultClass = 'good';
-            this.gameStats.correct++;
-        } else if (distance <= 500) {
-            resultText = `Közepes. ${distance} km távolság.`;
-            resultClass = 'good';
-        } else {
-            resultText = `Távol vagy. ${distance} km távolság.`;
-            resultClass = 'info';
-        }
-    
-        this.gameStats.score += points;
-        this.gameStats.total++;
-    
-        this.updateStats();
-        this.showResult(resultText, resultClass, points);
-            
+        
+        this.gameStats.score += points;  // Pont hozzáadás csak egyszer
+        if (points > 0) this.gameStats.correct++;
     }
+    
+    // Eredmény szöveg (mindig mutatja a távolságot)
+    let resultText = '';
+    let resultClass = 'info';
+    
+    if (distance <= 20) {
+        resultText = `Kiváló! Csak ${distance} km-re vagy!`;
+        resultClass = 'success';
+    } else if (distance <= 100) {
+        resultText = `Jó! ${distance} km távolság.`;
+        resultClass = 'good';
+    } else if (distance <= 500) {
+        resultText = `Közepes. ${distance} km távolság.`;
+        resultClass = 'good';
+    } else {
+        resultText = `Távol vagy. ${distance} km távolság.`;
+        resultClass = 'info';
+    }
+    
+    // Ha nem az első tipp, jelezd
+    if (this.hasGuessed) {
+        resultText += " (Nincs további pont)";
+    }
+    
+    this.hasGuessed = true;  // <-- ÚJ: jelöld hogy volt már tipp
+    this.gameStats.total++;  // Total mindig nő
+    
+    this.updateStats();
+    this.showResult(resultText, resultClass, points);
+}
     
     getRegionFromCoords(lat, lng) {
         // Egyszerű régió meghatározás koordináták alapján
