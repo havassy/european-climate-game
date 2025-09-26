@@ -565,8 +565,25 @@ class ClimateGame {
     	// Évi csapadékátlag számítása  
     	const avgPrecip = Math.round(city.precipitation.reduce((a, b) => a + b, 0));
     
-    	// Tengerszint feletti magasság (placeholder - later lehet ERA5-ből)
-    	const elevation = "~" + Math.round(Math.random() * 500 + 100); // Ideiglenes
+    	// Valós tengerszint feletti magasság adatok
+	const elevationData = {
+   	 "Stockholm": 40,
+  	  "Oslo": 26,
+  	  "Helsinki": 13,
+  	  "London": 11,
+   	 "Dublin": 17,
+   	 "Amsterdam": 14,
+  	  "Madrid": 660,
+  	  "Rome": 24,
+  	  "Athens": 85,
+  	  "Berlin": 34,
+   	 "Vienna": 171,
+   	 "Budapest": 110,
+   	 "Warsaw": 108,
+   	 "Bucharest": 72
+	};
+
+	const elevation = elevationData[cityName] || 100; // fallback érték
     
     	// HTML frissítése
 	const statsElement = document.getElementById('climate-stats');
