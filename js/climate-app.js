@@ -414,8 +414,8 @@ class ClimateGame {
         // Válasz gomb megjelenítése
 	const showAnswerBtn = document.getElementById('showAnswerBtn');
 	if (showAnswerBtn) {
- 	   showAnswerBtn.style.
-        }
+   		showAnswerBtn.style.display = 'inline-block';
+	}
     }
     
     getRegionFromCoords(lat, lng) {
