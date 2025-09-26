@@ -470,11 +470,6 @@ class ClimateGame {
         // Nagyítás a válaszra
         this.map.setView(coords, 8);
         
-        // Gombok frissítése
-        const showAnswerBtn = document.getElementById('showAnswerBtn');
-        const nextRoundBtn = document.getElementById('nextRoundBtn');
-        if (showAnswerBtn) showAnswerBtn.style.display = 'none';
-        if (nextRoundBtn) nextRoundBtn.style.display = 'inline-block';
     }
     
     nextRound() {
@@ -505,11 +500,6 @@ class ClimateGame {
         // Új város kiválasztása
         this.selectRandomCity();
         
-        // Gombok visszaállítása
-        const showAnswerBtn = document.getElementById('showAnswerBtn');
-        const nextRoundBtn = document.getElementById('nextRoundBtn');
-        if (showAnswerBtn) showAnswerBtn.style.display = 'inline-block';
-        if (nextRoundBtn) nextRoundBtn.style.display = 'none';
     }
     
     newGame() {
