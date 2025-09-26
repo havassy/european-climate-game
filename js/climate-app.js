@@ -162,6 +162,9 @@ class ClimateGame {
         // Diagram rajzolása
         this.drawClimateChart(this.currentCity);
         
+        // Statisztikák megjelenítése
+        this.updateClimateStats(this.currentCity);
+        
         // UI frissítése
         this.updateQuestionText();
     }
@@ -546,6 +549,29 @@ class ClimateGame {
         // Statisztikák és új város
         this.updateStats();
         this.selectRandomCity();
+        }
+
+    updateClimateStats(cityName) {
+    	const city = this.climateData.cities[cityName];
+    	if (!city) return;
+    
+    	// Évi középhőmérséklet számítása
+    	const avgTemp = (city.temperature.reduce((a, b) => a + b, 0) / 12).toFixed(1);
+    
+    	// Évi csapadékátlag számítása  
+    	const avgPrecip = Math.round(city.precipitation.reduce((a, b) => a + b, 0));
+    
+    	// Tengerszint feletti magasság (placeholder - later lehet ERA5-ből)
+    	const elevation = "~" + Math.round(Math.random() * 500 + 100); // Ideiglenes
+    
+    	// HTML frissítése
+    	const statsElement = document.getElementById('climate-stats');
+    	if (statsElement) {
+        	statsElement.innerHTML = `
+            	<strong>Évi kh.:</strong> ${avgTemp}°C | 
+            	<strong>Évi cs.á.:</strong> ${avgPrecip}mm | 
+            	<strong>Tszfm.:</strong> ${elevation}m
+        `;
     }
 }
 
