@@ -78,6 +78,7 @@ if not "%remote_url%"=="" (
             set reponame=%%b
         )
         REM Remove .git extension if present
+        setlocal enabledelayedexpansion
         set reponame=!reponame:.git=!
         echo Possible GitHub Pages URL: https://!username!.github.io/!reponame!/
     )
