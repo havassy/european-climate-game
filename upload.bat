@@ -73,14 +73,14 @@ if not "%remote_url%"=="" (
     REM Try to extract GitHub Pages URL if it's a GitHub repo
     echo %remote_url% | find "github.com" >nul
     if %errorlevel%==0 (
-        for /f "tokens=4,5 delims=/" %%a in ("%remote_url%") do (
-            set username=%%a
-            set reponame=%%b
-        )
-        REM Remove .git extension if present
         setlocal enabledelayedexpansion
-        set reponame=!reponame:.git=!
-        echo Possible GitHub Pages URL: https://!username!.github.io/!reponame!/
+        set "url_temp=!remote_url!"
+        set "url_temp=!url_temp:https://github.com/=!"
+        set "url_temp=!url_temp:.git=!"
+        for /f "tokens=1,2 delims=/" %%a in ("!url_temp!") do (
+            echo Possible GitHub Pages URL: https://%%a.github.io/%%b/
+        )
+        endlocal
     )
 )
 echo.
