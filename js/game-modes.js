@@ -3,6 +3,7 @@ class GameModeManager {
     constructor(climateGame) {
         this.climateGame = climateGame;
         this.currentMode = 'test'; // 'test' vagy 'learn'
+        this.cityMarkers = []; // Fontos: markers tömb inicializálása
         this.initEventListeners();
     }
     
@@ -34,14 +35,112 @@ class GameModeManager {
     }
     
     enableTestMode() {
-        // Jelenlegi teszt mód logika marad
         console.log('Teszt mód aktív');
-        // Itt később további módosítások jöhetnek
+        
+        // Város markerek eltávolítása
+        if (this.cityMarkers) {
+            this.cityMarkers.forEach(marker => this.climateGame.map.removeLayer(marker));
+            this.cityMarkers = [];
+        }
+        
+        // Eredeti kérdésszöveg visszaállítása
+        const questionElement = document.getElementById('challenge-text');
+        if (questionElement) {
+            questionElement.textContent = 'Melyik európai fővárosra jellemző ez a klíma?';
+        }
+        
+        // Teszt mód vezérlők megjelenítése
+        document.getElementById('showAnswerBtn').style.display = 'inline-block';
+        document.getElementById('nextRoundBtn').style.display = 'inline-block';
+        
+        // Diagram és statisztikák megjelenítése
+        document.getElementById('climateChart').style.display = 'block';
+        document.getElementById('climate-stats').style.display = 'block';
     }
     
     enableLearnMode() {
-        // Tanulás mód logika
         console.log('Tanulás mód aktív');
-        // Itt később kifejlesztjük a térképre kattintás logikát
+        
+        // Kérdésszöveg megváltoztatása
+        const questionElement = document.getElementById('challenge-text');
+        if (questionElement) {
+            questionElement.textContent = 'Válassz egy várost a térképről és fedezd fel a klímáját!';
+        }
+        
+        // Teszt mód vezérlők elrejtése
+        document.getElementById('showAnswerBtn').style.display = 'none';
+        document.getElementById('nextRoundBtn').style.display = 'none';
+        
+        // Diagram és statisztikák elrejtése kezdetben
+        document.getElementById('climateChart').style.display = 'none';
+        document.getElementById('climate-stats').style.display = 'none';
+        
+        // Város markerek megjelenítése
+        this.showCityMarkers();
+    }
+
+    showCityMarkers() {
+    	console.log('Város markerek megjelenítése...');
+    
+    	if (this.cityMarkers) {
+       	 this.cityMarkers.forEach(marker => this.climateGame.map.removeLayer(marker));
+    	}
+    	this.cityMarkers = [];
+    
+    	const cities = this.climateGame.climateData.cities;
+    	console.log('Elérhető városok:', Object.keys(cities)); // Debug: összes város
+    
+    	for (const [cityName, cityData] of Object.entries(cities)) {
+        	console.log(`Marker létrehozása: ${cityName}`, cityData.coordinates.target); // Debug: egy-egy város
+        
+        	const coords = cityData.coordinates.target;
+        	const regionColor = this.getRegionColor(cityData.region);
+        
+        	try {
+            	const marker = L.marker(coords, {
+                	// ... marker kód változatlan
+            	}).addTo(this.climateGame.map)
+            	.bindPopup(`<strong>${cityName}</strong><br>${cityData.country}`)
+            	.on('click', () => {
+                	this.displayCityInfo(cityName);
+            	});
+            
+            	this.cityMarkers.push(marker);
+            	console.log(`${cityName} marker sikeresen hozzáadva`); // Debug: siker
+        	} catch (error) {
+            	console.error(`Hiba ${cityName} marker létrehozásakor:`, error); // Debug: hiba
+        	}
+    	}
+    
+    console.log(`Összesen ${this.cityMarkers.length} marker létrehozva`); // Debug: összesen
+}
+
+    getRegionColor(region) {
+        const colors = {
+            north: '#4A90E2',
+            west: '#7ED321', 
+            south: '#F5A623',
+            central: '#D0021B',
+            east: '#9013FE'
+        };
+        return colors[region] || '#666666';
+    }
+
+    displayCityInfo(cityName) {
+        console.log(`Kiválasztott város: ${cityName}`);
+        
+        // Diagram és statisztikák megjelenítése
+        document.getElementById('climateChart').style.display = 'block';
+        document.getElementById('climate-stats').style.display = 'block';
+        
+        // Város klímadiagramjának rajzolása
+        this.climateGame.drawClimateChart(cityName);
+        this.climateGame.updateClimateStats(cityName);
+        
+        // Kérdésszöveg frissítése
+        const questionElement = document.getElementById('challenge-text');
+        if (questionElement) {
+            questionElement.textContent = `${cityName} klímája`;
+        }
     }
 }
