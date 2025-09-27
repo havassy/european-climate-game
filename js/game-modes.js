@@ -91,7 +91,7 @@ class GameModeManager {
     	console.log('Elérhető városok:', Object.keys(cities)); // Debug: összes város
     
     	for (const [cityName, cityData] of Object.entries(cities)) {
-        	console.log(`Marker létrehozása: ${cityName}`, cityData.coordinates.target); // Debug: egy-egy város
+        	console.log(`Marker létrehozása: ${cityName}, régió: ${cityData.region}, szín: ${regionColor}`);
         
         	const coords = cityData.coordinates.target;
         	const regionColor = this.getRegionColor(cityData.region);
