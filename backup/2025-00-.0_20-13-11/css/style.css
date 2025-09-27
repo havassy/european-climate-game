@@ -1,0 +1,279 @@
+/* European Climate Game - CSS stílusok */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    color: #4a5568;
+    margin: 0;
+    font-size: 2.5em;
+}
+
+.header p {
+    color: #666;
+    font-size: 1.1em;
+}
+
+.stats-panel {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    min-width: 100px;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #667eea;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #666;
+}
+
+.game-area {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.diagram-section,
+.map-section {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.diagram-section h2 {
+    color: #4a5568;
+    margin-top: 0;
+    font-size: 1.3em;
+}
+
+.chart-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#climateChart {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-width: 100%;
+    height: auto;
+}
+
+.chart-legend {
+    text-align: center;
+    margin: 15px 0;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.regions-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.region-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9em;
+}
+
+.region-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+}
+
+.region-color.north { background-color: #4A90E2; }
+.region-color.west { background-color: #7ED321; }
+.region-color.south { background-color: #F5A623; }
+.region-color.central { background-color: #D0021B; }
+.region-color.east { background-color: #9013FE; }
+
+/* TÉRKÉP STÍLUSOK */
+#map {
+    height: 460px;
+    width: 100%;
+    border-radius: 8px;
+    border: 2px solid #e2e8f0;
+}
+
+.map-instruction {
+    text-align: center;
+    margin-top: 15px;
+    color: #666;
+}
+
+.controls {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    margin: 5px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.btn:disabled {
+    background: #cbd5e0;
+    transform: none;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #ed8936, #dd6b20);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #48bb78, #38a169);
+}
+
+.climate-stats {
+    text-align: center;
+    margin: 10px 0;
+    padding: 8px;
+    background: #f8f9fa;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #495057;
+}
+
+/* EREDMÉNY PANEL - egyetlen, konszolidált verzió */
+.result-panel {
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin: 15px 0;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    
+    /* Alapértelmezett megjelenés - mindig látható */
+    background: #f1f3f4;
+    color: #5f6368;
+    border: 1px solid #dadce0;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.result-panel.success {
+    background: linear-gradient(135deg, #48bb78, #38a169);
+    color: white;
+    border: none;
+}
+
+.result-panel.good {
+    background: linear-gradient(135deg, #ed8936, #dd6b20);
+    color: white;
+    border: none;
+}
+
+.result-panel.info {
+    background: linear-gradient(135deg, #4299e1, #3182ce);
+    color: white;
+    border: none;
+}
+
+.footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+    text-align: center;
+    color: #666;
+}
+
+.data-source-simple p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.footer h3 {
+    color: #4a5568;
+    margin-top: 0;
+}
+
+.footer ul {
+    padding-left: 20px;
+}
+
+.footer li {
+    margin: 8px 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .game-area {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-panel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .footer {
+        grid-template-columns: 1fr;
+    }
+    
+    .regions-info {
+        justify-content: center;
+    }
+    
+    #map {
+        height: 320px;
+    }
+}

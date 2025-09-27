@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Európai Klímajáték</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🌍 Európai Klímajáték</h1>
+            <p>Találd meg a klímadiagram alapján a megfelelő európai fővárost!</p>
+        </header>
+        
+        <div class="stats-panel">
+            <div class="stat-card">
+                <div class="stat-value" id="score">0</div>
+                <div class="stat-label">Pontok</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="round">1</div>
+                <div class="stat-label">Diagram</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="correct">0</div>
+                <div class="stat-label">Helyes válasz</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="total">0</div>
+                <div class="stat-label">Összes tipp</div>
+            </div>
+        </div>
+        
+	<div class="controls">
+   		 <button onclick="newGame()" class="btn btn-primary">🎲 Új játék</button>
+  		  <button onclick="showAnswer()" id="showAnswerBtn" class="btn btn-secondary">💡 Mutasd a választ</button>
+  		  <button onclick="nextRound()" id="nextRoundBtn" class="btn btn-success">▶️ Következő diagram</button>
+	</div>
+
+        <div id="result" class="result-panel">Eredmény visszajelző panel</div>
+
+        <div class="game-area">
+            <div class="diagram-section">
+                <h2 id="challenge-text">Európa melyik részére jellemző ez az éghajlat?</h2>
+                <div id="climate-stats" class="climate-stats">
+   			 <!-- Itt jelennek meg a statisztikák -->
+		</div>
+		<div class="chart-container">
+  		    <canvas id="climateChart" width="500" height="350"></canvas>
+		</div>
+		<p class="chart-legend">
+   			 🌡️ Évi kh. - évi középhőmérséklet | 🌧️ Évi cs.á. - évi csapadékátlag<br>
+			 ⛰️ Tszfm. - tengerszint feletti magasság
+		</p>
+                <!--
+                <div class="regions-info">
+                    <div class="region-item">
+                        <span class="region-color north"></span>
+                        <span class="region-name">Észak-Európa</span>
+                    </div>
+                    <div class="region-item">
+                        <span class="region-color west"></span>
+                        <span class="region-name">Nyugat-Európa</span>
+                    </div>
+                    <div class="region-item">
+                        <span class="region-color south"></span>
+                        <span class="region-name">Dél-Európa</span>
+                    </div>
+                    <div class="region-item">
+                        <span class="region-color central"></span>
+                        <span class="region-name">Közép-Európa</span>
+                    </div>
+                    <div class="region-item">
+                        <span class="region-color east"></span>
+                        <span class="region-name">Kelet-Európa</span>
+                    </div>
+                </div>
+                -->
+            </div>
+            
+            <div class="map-section">
+                <div id="map"></div>
+                <p class="map-instruction">
+                    Kattints a térképre a tipped leadásához!
+                </p>
+            </div>
+        </div>
+                              
+        <footer class="footer">
+   	   <div class="data-source-simple">
+      	   	<p>Adatforrás: Klímaadatok: <strong>ERA5 Reanalysis 1991-2020</strong> Európai Időjárási Szolgálat (ECMWF)</p>
+   	   </div>
+	</footer>
+
+    </div>
+
+    <!-- JavaScript könyvtárak -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/climate-app.js"></script>
+    
+    <!-- Inicializálás ellenőrzés -->
+    <script>
+        // Leaflet betöltés ellenőrzése
+        function checkLibraries() {
+            if (typeof L === 'undefined') {
+                console.error('Leaflet könyvtár nem töltődött be');
+                document.body.innerHTML = '<div style="padding: 50px; text-align: center;"><h2>Hiba: Térkép könyvtár nem elérhető</h2><p>Ellenőrizd az internetkapcsolatot és frissítsd az oldalt.</p></div>';
+                return false;
+            }
+            return true;
+        }
+        
+        // Ellenőrzés késleltetéssel
+        setTimeout(checkLibraries, 2000);
+        
+        // Loading állapot kezelése
+        window.addEventListener('load', function() {
+            document.body.classList.add('loaded');
+        });
+    </script>
+</body>
+</html>
