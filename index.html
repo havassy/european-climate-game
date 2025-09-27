@@ -33,10 +33,15 @@
             </div>
         </div>
         
+	<div class="game-mode-selector">
+    		<button id="testModeBtn" class="btn btn-mode active">🎯 Teszt mód</button>
+   		<button id="learnModeBtn" class="btn btn-mode">📚 Tanulás mód</button>
+	</div>
+
 	<div class="controls">
-   		 <button onclick="newGame()" class="btn btn-primary">🎲 Új játék</button>
-  		  <button onclick="showAnswer()" id="showAnswerBtn" class="btn btn-secondary">💡 Mutasd a választ</button>
-  		  <button onclick="nextRound()" id="nextRoundBtn" class="btn btn-success">▶️ Következő diagram</button>
+    		<button onclick="newGame()" class="btn btn-primary">🎲 Új játék</button>
+    		<button onclick="showAnswer()" id="showAnswerBtn" class="btn btn-secondary">💡 Mutasd a választ</button>
+    		<button onclick="nextRound()" id="nextRoundBtn" class="btn btn-success">▶️ Következő diagram</button>
 	</div>
 
         <div id="result" class="result-panel">Eredmény visszajelző panel</div>
@@ -99,6 +104,7 @@
     <!-- JavaScript könyvtárak -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="js/climate-app.js"></script>
+    <script src="js/game-modes.js"></script>
     
     <!-- Inicializálás ellenőrzés -->
     <script>

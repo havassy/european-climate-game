@@ -277,3 +277,38 @@ body {
         height: 320px;
     }
 }
+
+/* Játékmód váltó gombok */
+.game-mode-selector {
+    text-align: center;
+    margin: 20px 0 30px 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-mode {
+    background: #e2e8f0;
+    color: #4a5568;
+    border: 2px solid transparent;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-mode:hover {
+    background: #cbd5e0;
+    transform: translateY(-1px);
+}
+
+.btn-mode.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: #667eea;
+}
+
+.controls {
+    margin-top: 20px;
+}

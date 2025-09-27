@@ -585,6 +585,7 @@ class ClimateGame {
 
 // Globális game objektum
 let climateGame = null;
+let gameModeManager = null;
 
 // Inicializálás amikor a DOM betöltődött
 document.addEventListener('DOMContentLoaded', async function() {
@@ -593,6 +594,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     try {
         climateGame = new ClimateGame();
         await climateGame.init();
+        
+        // Játékmód manager inicializálása
+        gameModeManager = new GameModeManager(climateGame);
+        console.log('Game Mode Manager inicializálva');
     } catch (error) {
         console.error('Játék inicializálási hiba:', error);
     }
