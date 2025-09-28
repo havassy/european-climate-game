@@ -367,23 +367,40 @@ class ClimateGame {
     }
     
     makeGuess(latlng) {
-        // Korábbi marker törlése
-        if (this.guessMarker) {
-            this.map.removeLayer(this.guessMarker);
-        }
-        
-        // Új tipp marker
-        this.guessMarker = L.marker(latlng, {
-            icon: L.icon({
-                iconUrl: 'data:image/svg+xml;base64,' + btoa('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="orange"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>'),
-                iconSize: [30, 30],
-                iconAnchor: [15, 30]
-            })
-        }).addTo(this.map);
-        
-        // Értékelés
-        this.evaluateGuess(latlng);
-    }
+    	// Korábbi marker törlése
+    	if (this.guessMarker) {
+        	this.map.removeLayer(this.guessMarker);
+    	}
+    
+    	// Távolság számítása
+    	const cityData = this.climateData.cities[this.currentCity];
+    	const actualCoords = cityData.coordinates.target;
+    	const distance = Math.round(L.latLng(actualCoords).distanceTo(latlng) / 1000);
+    
+    	// Szín meghatározása távolság alapján
+    	let markerColor;
+    	if (distance <= 20) {
+        	markerColor = '#48bb78'; // zöld (success)
+    	} else if (distance <= 100) {
+        	markerColor = '#ed8936'; // narancssárga (good)
+    	} else if (distance <= 500) {
+        	markerColor = '#ed8936'; // narancssárga (good)
+    	} else {
+        	markerColor = '#4299e1'; // kék (info)
+    	}
+    
+    	// Új tipp marker a megfelelő színnel
+    	this.guessMarker = L.marker(latlng, {
+        	icon: L.icon({
+            	iconUrl: 'data:image/svg+xml;base64,' + btoa(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="${markerColor}"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>`),
+            	iconSize: [30, 30],
+            	iconAnchor: [15, 30]
+        	})
+    	}).addTo(this.map);
+    
+    // Értékelés
+    this.evaluateGuess(latlng);
+}
     
     evaluateGuess(latlng) {
     const cityData = this.climateData.cities[this.currentCity];
