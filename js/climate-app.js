@@ -576,15 +576,15 @@ class ClimateGame {
             "Helsinki": 13,
             "London": 11,
             "Dublin": 17,
-            "Amsterdam": 14,
+            "Amszterdam": 14,
             "Madrid": 660,
-            "Rome": 24,
-            "Athens": 85,
+            "Róma": 24,
+            "Athén": 85,
             "Berlin": 34,
-            "Vienna": 171,
+            "Bécs": 171,
             "Budapest": 110,
-            "Warsaw": 108,
-            "Bucharest": 72
+            "Varsó": 108,
+            "Bukarest": 72
         };
 
         const elevation = elevationData[cityName] || 100; // fallback érték

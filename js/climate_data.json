@@ -216,7 +216,7 @@
         78.9
       ]
     },
-    "Amsterdam": {
+    "Amszterdam": {
       "region": "west",
       "country": "Hollandia",
       "coordinates": {
@@ -300,7 +300,7 @@
         45.5
       ]
     },
-    "Rome": {
+    "Róma": {
       "region": "south",
       "country": "Olaszország",
       "coordinates": {
@@ -342,7 +342,7 @@
         95.1
       ]
     },
-    "Athens": {
+    "Athén": {
       "region": "south",
       "country": "Görögország",
       "coordinates": {
@@ -426,7 +426,7 @@
         51.1
       ]
     },
-    "Vienna": {
+    "Bécs": {
       "region": "central",
       "country": "Ausztria",
       "coordinates": {
@@ -510,7 +510,7 @@
         46.5
       ]
     },
-    "Warsaw": {
+    "Varsó": {
       "region": "east",
       "country": "Lengyelország",
       "coordinates": {
@@ -552,7 +552,7 @@
         47.6
       ]
     },
-    "Bucharest": {
+    "Bukarest": {
       "region": "east",
       "country": "Románia",
       "coordinates": {
