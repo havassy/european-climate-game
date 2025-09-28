@@ -159,7 +159,7 @@ class ClimateGame {
         this.currentCity = cityNames[randomIndex];
 	this.hasGuessed = false;
         
-        console.log(`Kiválasztott város: ${this.currentCity}`);
+        // console.log(`Kiválasztott város: ${this.currentCity}`);
         
         // Diagram rajzolása
         this.drawClimateChart(this.currentCity);
