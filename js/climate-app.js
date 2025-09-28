@@ -142,7 +142,7 @@ class ClimateGame {
         
         // Kattintás eseménykezelő
         this.map.on('click', (e) => {
-            if (this.currentCity) {
+                if (this.currentCity && gameModeManager && gameModeManager.currentMode === 'test') {
                 this.makeGuess(e.latlng);
             }
         });
