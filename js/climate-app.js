@@ -5,7 +5,8 @@ class ClimateGame {
     constructor() {
         this.climateData = null;
         this.currentCity = null;
-	this.hasGuessed = false;	
+	this.hasGuessed = false;
+	this.recentCities = [];	
         this.gameLevel = 1; // 1 = régió, 2 = pontos város
         this.gameStats = {
             score: 0,
@@ -148,28 +149,43 @@ class ClimateGame {
     }
     
     selectRandomCity() {
-        if (!this.climateData || !this.climateData.cities) {
-            console.error('Nincs elérhető klímaadat!');
-            this.showError('Klímaadatok nem elérhetők. Próbáld frissíteni az oldalt.');
-            return;
-        }
-        
-        const cityNames = Object.keys(this.climateData.cities);
-        const randomIndex = Math.floor(Math.random() * cityNames.length);
-        this.currentCity = cityNames[randomIndex];
-	this.hasGuessed = false;
-        
-        // console.log(`Kiválasztott város: ${this.currentCity}`);
-        
-        // Diagram rajzolása
-        this.drawClimateChart(this.currentCity);
-        
-        // Statisztikák megjelenítése
-        this.updateClimateStats(this.currentCity);
-        
-        // UI frissítése
-        this.updateQuestionText();
-    }
+    	if (!this.climateData || !this.climateData.cities) {
+        	console.error('Nincs elérhető klímaadat!');
+        	this.showError('Klímaadatok nem elérhetők. Próbáld frissíteni az oldalt.');
+        	return;
+    	}
+    
+    	const allCityNames = Object.keys(this.climateData.cities);
+    
+    	// Elérhető városok szűrése (kizárva az utolsó 5-öt)
+    	let availableCities = allCityNames.filter(city => !this.recentCities.includes(city));
+    
+    	// Ha nincs elérhető város, nullázás és újra próbálkozás
+    	if (availableCities.length === 0) {
+        	this.recentCities = [];
+        	availableCities = allCityNames;
+    	}
+    
+    	// Random kiválasztás az elérhető városokból
+    	const randomIndex = Math.floor(Math.random() * availableCities.length);
+    	this.currentCity = availableCities[randomIndex];
+    	this.hasGuessed = false;
+    
+    	// Recent cities frissítése
+    	this.recentCities.push(this.currentCity);
+    	if (this.recentCities.length > 5) {
+        this.recentCities.shift(); // Első elem törlése
+    	}
+    
+    	// Diagram rajzolása
+    	this.drawClimateChart(this.currentCity);
+    
+    	// Statisztikák megjelenítése
+    	this.updateClimateStats(this.currentCity);
+    
+    	// UI frissítése
+    	this.updateQuestionText();
+	}
     
     updateQuestionText() {
         const questionElement = document.getElementById('challenge-text');
