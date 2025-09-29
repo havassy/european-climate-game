@@ -36,6 +36,13 @@ class GameModeManager {
     
     enableTestMode() {
         console.log('Teszt mód aktív');
+	
+	// Új játék gomb láthatóvá tétele
+	const newGameBtn = document.querySelector('button[onclick="newGame()"]');
+	if (newGameBtn) {
+   	newGameBtn.style.visibility = 'visible';
+    	newGameBtn.style.cursor = 'pointer';
+	}
         
         // Város markerek eltávolítása
         if (this.cityMarkers) {
@@ -60,6 +67,13 @@ class GameModeManager {
     
     enableLearnMode() {
         console.log('Tanulás mód aktív');
+	
+	// Új játék gomb láthatatlanná tétele (de helyet foglal)
+	const newGameBtn = document.querySelector('button[onclick="newGame()"]');
+	if (newGameBtn) {
+    	newGameBtn.style.visibility = 'hidden';
+    	newGameBtn.style.cursor = 'default';
+	}
         
         // Kérdésszöveg megváltoztatása
         const questionElement = document.getElementById('challenge-text');
