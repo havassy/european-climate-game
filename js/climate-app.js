@@ -588,22 +588,24 @@ class ClimateGame {
     
         // Valós tengerszint feletti magasság adatok
         const elevationData = {
-            "Stockholm": 40,
-            "Oslo": 26,
-            "Helsinki": 13,
-            "London": 11,
-            "Dublin": 17,
-            "Amszterdam": 14,
-            "Madrid": 660,
-            "Róma": 24,
-            "Athén": 85,
-            "Berlin": 34,
-            "Bécs": 171,
-            "Budapest": 110,
-            "Varsó": 108,
-            "Bukarest": 72
-        };
-
+    	"Stockholm": 40,
+    	"Oslo": 26,
+    	"Helsinki": 13,
+    	"London": 11,
+    	"Dublin": 17,
+    	"Amszterdam": 14,
+    	"Párizs": 35,
+    	"Madrid": 660,
+    	"Róma": 24,
+    	"Athén": 85,
+    	"Berlin": 34,
+    	"Budapest": 110,
+    	"Varsó": 108,
+    	"Bukarest": 72,
+    	"Kijev": 179,
+    	"Moszkva": 156
+	};
+        
         const elevation = elevationData[cityName] || 100; // fallback érték
         
         // HTML frissítése
